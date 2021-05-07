@@ -9,8 +9,8 @@ window.title("PiRegister")
 window.geometry('600x400')
 Items = Listbox(window, height = 20, 
                   width = 30, 
-                  bg = "yellow",
-                  fg = "purple")
+                  bg = "purple",
+                  fg = "white")
 Items.pack()
 def checkit():
   if len(newtags) > 0:
