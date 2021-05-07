@@ -3,10 +3,10 @@ import subprocess
 import sheeto
 def tags():
   return []
-newtags=[]
+newtags=["ggg"]
 window = Tk()
 window.title("PiRegister")
-window.geometry('600x400')
+window.geometry('700x400')
 Items = Listbox(window, height = 20, 
                   width = 30, 
                   bg = "purple",
