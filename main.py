@@ -3,7 +3,7 @@ import subprocess
 import sheeto
 def tags():
   return []
-newtags=["ggg"]
+newtags=[]
 window = Tk()
 window.title("PiRegister")
 window.geometry('700x400')
