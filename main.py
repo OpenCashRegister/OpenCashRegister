@@ -9,17 +9,32 @@ import record
 
 import subprocess
 
+import zmq
+context = zmq.Context()
+#  Socket to talk to tagomatic
+socket = context.socket(zmq.REQ)
+socket.connect("tcp://localhost:1660")
 
-newtagids=[123456789,123456781]
+newtagids=[]
 
 window = Tk()
 print("Window Definition")
 
-Total=Label(window,text="Total: $0.00")
+Total=Label(window,text="Total: $1194.25")
 Total.pack()
+prevlen=0
+def updatte():
+  socket.send(b'o')
+  lst=socket.recv().decode().split("|")
+  if len(lst) > prevlen:
+    frst=prevlen
+    last=len(lst)-1
+    for indx in range(frst,last):
+      newtagids.append(lst[indx])
 #Func Definition
 def tags():
   textlist=[]
+  updatte()
   for id in newtagids:
     rownum=sheeto.ids[str(id)]
     row=sheeto.Itemsheet.getRow(rownum)
@@ -35,7 +50,6 @@ def tags():
     Total.config(text="Total: $"+str(float((Total.cget("text")[8:]))+float(price)))
     record.ins(id,profit,name)
   newtagids.clear()
-  
   return textlist
 
 #some other stufffffffff
@@ -70,8 +84,7 @@ def checkit():
   if tgs:
     for i in tgs:
       newtags.append(i)
-      window.after(125, checkit)
-
+  window.after(333, checkit)
 
 print("Def checkit")
 window.after(1000, checkit)
