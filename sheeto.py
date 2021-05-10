@@ -7,4 +7,4 @@ IDlist=list(filter(lambda x: x != "", Itemsheet.getColumn(5)))
 del IDlist[0]
 ids={}
 for l in range(len(IDlist)):
-  ids[IDlist[l]]=l+1
+  ids[IDlist[l]]=l+2
