@@ -1,5 +1,7 @@
 import ezsheets
-id = "18jtSOxNMVmV7iE02lXIbmWJT8OwzwNCLtDqChcwJoHk"
+id = ""
+while not id:
+  pass
 ss=ezsheets.Spreadsheet(id)
 Itemsheet=ss["Items"]
 orders=ss["Purchases"]

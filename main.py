@@ -1,28 +1,29 @@
-#imports
+import logging
 from tkinter import *
-print("Tkinter Imported")
-
 from record import sheeto
-print("Sheeto Done")
-
 import record
-
+import subprocess
+import zmq
 import subprocess
 
-import zmq
+idd=input("ID: ")
+sheeto.id=idd
+logging.basicConfig(format='%(levelname)s:%(message)s')
+logging.info("Started")
+
 context = zmq.Context()
-#  Socket to talk to tagomatic
 socket = context.socket(zmq.REQ)
 socket.connect("tcp://localhost:1660")
 
+logging.info("ZMQ Socket Initiated")
+
 newtagids=[]
-
 window = Tk()
-print("Window Definition")
-
-Total=Label(window,text="Total: $1194.25")
+Total=Label(window,text="Total: $0.00")
 Total.pack()
 prevlen=0
+
+
 def updatte():
   socket.send(b'o')
   lst=socket.recv().decode().split("|")
@@ -31,7 +32,9 @@ def updatte():
     last=len(lst)-1
     for indx in range(frst,last):
       newtagids.append(lst[indx])
-#Func Definition
+
+
+
 def tags():
   textlist=[]
   updatte()
@@ -52,7 +55,7 @@ def tags():
   newtagids.clear()
   return textlist
 
-#some other stufffffffff
+
 newtags=[]
 window.title("PiRegister")
 window.geometry('700x400')
@@ -62,10 +65,10 @@ Items = Listbox(window, height = 20,
                   width = 30, 
                   bg = "purple",
                   fg = "white")
-print("ListBox Definition")
+
 
 Items.pack() 
-print(".pack -ed listbox")
+
 
 def clr():
   Items.delete(0,'end')
@@ -86,8 +89,8 @@ def checkit():
       newtags.append(i)
   window.after(333, checkit)
 
-print("Def checkit")
+
 window.after(1000, checkit)
 
-print("win.after")
+
 window.mainloop()
